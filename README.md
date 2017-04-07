@@ -14,7 +14,7 @@ This app is used to test the network throughput performance between the web serv
 ## Running a throughput performance test
 You will need two laptops to execute a throughput performance test. Do the following:
 1. On th first laptop, connect it to the network via ethernet. Run `iperf3 -s` to start the iperf3 server. 
-2. On the second laptop, connect it via wifi to an access point. Inside the app, run `gulp serve` to build and deploy the app. This will open a browser tab, pointed to the app.
+2. On the second laptop, connect it via wifi to an access point. Inside the app, run `npm install; gulp serve` to build and deploy the app. This will open a browser tab, pointed to the app.
 3. In the app, specify a client IP address, using the laptop from step 2. This will be one of the the web server's wifi network interfaces' IP addresses. Then specify a server IP address, using the laptop from step 1.
 4. Click Start Test
 5. The results from the test will appear after 10 seconds at the top of the table.
