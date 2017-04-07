@@ -40,9 +40,8 @@ function saveResults(forwardBandwidth, reverseBandwidth, clientIp, serverIp){
  * Get the the current timestamp
  */
 function getDateTime(){
-    var newDate = new Date();
+    let newDate = new Date();
     return newDate.toDateString() + " " + newDate.toLocaleTimeString();
-
 }
 
 /**
@@ -74,12 +73,13 @@ export default function runTest(clientIp, serverIp) {
         forwardTestCommand,
         function(forwardTestResults) {
             if(!forwardTestResults) {
-                saveFailure(clientIp, serverIp);
+                saveFailure(clientIp, serverIp, 'Test did not run. Please verify the IP addresses are accessible from the web server.');
+                return;
             }
 
             let forwardBandwidth = parseBandwidth(forwardTestResults);
             if(!forwardBandwidth) {
-                saveFailure(clientIp, serverIp, 'Test did not run. Please verify the IP addresses are accessible from the web server.');
+                saveFailure(clientIp, serverIp, 'Client to Server test did not return results correctly. Please try again.');
                 return;
             }
 
@@ -90,7 +90,7 @@ export default function runTest(clientIp, serverIp) {
                 function(reverseTestResults) {
                     let reverseBandwidth = parseBandwidth(reverseTestResults);
                     if(!reverseBandwidth) {
-                        saveFailure(clientIp, serverIp, 'Test did not return results correctly. Please try again.');
+                        saveFailure(clientIp, serverIp, 'Server to Client test did not return results correctly. Please try again.');
                     }
                     saveResults(forwardBandwidth, reverseBandwidth, clientIp, serverIp);
                     console.log('test ran successfully');

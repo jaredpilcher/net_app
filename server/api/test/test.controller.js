@@ -25,39 +25,6 @@ function respondWithResult(res, statusCode) {
   };
 }
 
-function patchUpdates(patches) {
-  return function(entity) {
-    try {
-      jsonpatch.apply(entity, patches, /*validate*/ true);
-    } catch(err) {
-      return Promise.reject(err);
-    }
-
-    return entity.save();
-  };
-}
-
-function removeEntity(res) {
-  return function(entity) {
-    if(entity) {
-      return entity.remove()
-        .then(() => {
-          res.status(204).end();
-        });
-    }
-  };
-}
-
-function handleEntityNotFound(res) {
-  return function(entity) {
-    if(!entity) {
-      res.status(404).end();
-      return null;
-    }
-    return entity;
-  };
-}
-
 function handleError(res, statusCode) {
   statusCode = statusCode || 500;
   return function(err) {
@@ -75,8 +42,8 @@ export function index(req, res) {
 // Creates a new Test in the DB
 export function create(req, res) {
     //validate ip addresses
-    let server = req.params.server;
-    let client = req.params.client;
+    let server = req.body.server;
+    let client = req.body.client;
     if(!client || !validator.isIP(client) || !server || !validator.isIP(server)) {
         console.log('invalid ip addresses. client:' + client + ' server:' + server);
         handleError(res, 400);

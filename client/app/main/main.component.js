@@ -4,32 +4,50 @@ import routing from './main.routes';
 
 export class MainController {
 
-  awesomeThings = [];
-  newThing = '';
+  client = null;
+  server = null;
 
   /*@ngInject*/
-  constructor($http) {
+  constructor($http, $interval) {
     this.$http = $http;
+    this.$interval = $interval;
   }
 
   $onInit() {
-    this.$http.get('/api/things')
-      .then(response => {
-        this.awesomeThings = response.data;
+      //retrieve tests every second
+      let self = this;
+      this.$interval( function() {
+          self.retrieveTests();
+        },
+          1000);
+  }
+
+    /**
+     * retrieve tests from the tests api
+     */
+  retrieveTests() {
+      console.log('retreiving tests');
+      this.$http.get('/api/tests')
+        .then(response => {
+            this.tests = response.data;
+            if(this.tests) {
+                this.tests.reverse(); //to order in descending order
+            }
       });
   }
 
-  addThing() {
-    if(this.newThing) {
-      this.$http.post('/api/things', {
-        name: this.newThing
+    /**
+     * Start a throughput performance test via tests api
+     */
+  startTest() {
+    if(this.client && this.server) {
+      this.$http.post('/api/tests', {
+        client: this.client,
+        server: this.server
       });
-      this.newThing = '';
+      this.client = '';
+      this.server = '';
     }
-  }
-
-  deleteThing(thing) {
-    this.$http.delete(`/api/things/${thing._id}`);
   }
 }
 

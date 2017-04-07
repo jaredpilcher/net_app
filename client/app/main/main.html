@@ -1,18 +1,44 @@
-<header class="hero-unit" id="banner">
-  <div class="container">
-    <h1>'Allo, 'Allo!</h1>
-    <p class="lead">Kick-start your next web app with Angular Fullstack</p>
-    <img src="assets/images/yeoman.png" alt="I'm Yeoman">
-  </div>
-</header>
-
 <div class="container">
-  <div class="row">
-    <div class="col-lg-12">
-      <h1 class="page-header">Features:</h1>
-      <ul class="nav nav-tabs nav-stacked col-md-4 col-lg-4 col-sm-6" ng-repeat="thing in $ctrl.awesomeThings">
-        <li><a href="#" uib-tooltip="{{thing.info}}">{{thing.name}}</a></li>
-      </ul>
+    <div class="row row-padded">
+        <div class="col-md-3">
+            <h1>Network Performance Test</h1>
+        </div>
     </div>
-  </div>
+</div>
+<div class="container">
+    <div class="row row-padded">
+        <div class="col-md-8">
+            <input ng-model="$ctrl.client"/>
+            <input ng-model="$ctrl.server"/>
+            <button class="btn-primary btn" ng-click="$ctrl.startTest()">Start Test</button>
+        </div>
+    </div>
+</div>
+<div class="container">
+    <div class="row row-padded">
+        <div class="col-md-12">
+            <table class="table table-hover table-responsive table-striped table-bordered">
+                <thead>
+                <tr>
+                    <th>Date Executed</th>
+                    <th>Client IP Address</th>
+                    <th>Server IP Address</th>
+                    <th>Client to Server Bandwidth</th>
+                    <th>Server to Client Bandwidth</th>
+                    <th>Message</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr ng-repeat="test in $ctrl.tests">
+                    <td>{{test.timestamp}}</td>
+                    <td>{{test.client_ip}}</td>
+                    <td>{{test.server_ip}}</td>
+                    <td>{{test.forward_bandwidth}}</td>
+                    <td>{{test.reverse_bandwidth}}</td>
+                    <td>{{test.message}}</td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
 </div>
