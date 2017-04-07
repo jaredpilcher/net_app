@@ -6,6 +6,7 @@ export class MainController {
 
   client = null;
   server = null;
+  interfaces = [];
 
   /*@ngInject*/
   constructor($http, $interval) {
@@ -20,6 +21,20 @@ export class MainController {
           self.retrieveTests();
         },
           1000);
+
+      this.interfaces = this.retrieveClientInterfaces();
+  }
+
+    /**
+     * Retrieve Interfaces
+     */
+  retrieveClientInterfaces() {
+    console.log('retreiving interfaces');
+    let self = this;
+    this.$http.get('/api/interfaces')
+        .then(response => {
+            self.interfaces = response.data;
+        });
   }
 
     /**
@@ -27,14 +42,17 @@ export class MainController {
      */
   retrieveTests() {
       console.log('retreiving tests');
+      let self = this;
       this.$http.get('/api/tests')
         .then(response => {
-            this.tests = response.data;
-            if(this.tests) {
-                this.tests.reverse(); //to order in descending order
+            self.tests = response.data;
+            if(self.tests) {
+                self.tests.reverse(); //to order in descending order
             }
       });
   }
+
+
 
     /**
      * Start a throughput performance test via tests api

@@ -10,7 +10,9 @@
             <form>
                 <div class="form-group">
                     <label for="client_ip">Client IP</label>
-                    <input id="client_ip" class="form-control" ng-model="$ctrl.client" placeholder="10.0.0.50..."/>
+                    <select id="client_ip" class="form-control" ng-model="$ctrl.client">
+                        <option value="{{ip_address}}" ng-repeat="ip_address in $ctrl.interfaces">{{ip_address}}</option>
+                    </select>
                 </div>
 
 
@@ -19,7 +21,7 @@
                     <input id="server_ip" class="form-control" ng-model="$ctrl.server" placeholder="10.0.0.160..."/>
                 </div>
 
-                <button class="btn-primary btn btn" ng-click="$ctrl.startTest()">Start Test</button>
+                <button class="btn-primary btn btn" ng-disabled="!($ctrl.client && $ctrl.server)" type="submit" ng-click="$ctrl.startTest()">Start Test</button>
             </form>
         </div>
     </div>
