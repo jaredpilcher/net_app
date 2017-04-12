@@ -67,7 +67,7 @@ function saveFailure(clientIp, serverIp, message) {
  */
 export default function runTest(clientIp, serverIp) {
     //run the forward (client to server) performance test command
-    let forwardTestCommand = 'iperf3 -c ' + serverIp + ' -B ' + clientIp + ' -f m -t 5 -i 30 -N -S 0x08 -w 223k';
+    let forwardTestCommand = 'iperf3 -c ' + serverIp + ' -B ' + clientIp + ' -f m -t 10 -i 30 -N -S 0x08 -w 223k';
     console.log('running forward performance test: ' + forwardTestCommand);
     cmd.get(
         forwardTestCommand,
