@@ -7,7 +7,7 @@ import Test from './test.model';
  */
 function parseBandwidth(results) {
     //parse bandwidth from results
-    let bandwidth = results.match(/.*Bytes   (\d{0,9} .bits\/sec).*/);
+    let bandwidth = results.match(/ (\d{0,9}(?:\.*\d{0,9})? Mbits\/sec) .*/);
 
     if(!Array.isArray(bandwidth)) {
         return false;

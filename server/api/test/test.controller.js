@@ -10,7 +10,6 @@
 
 'use strict';
 
-import jsonpatch from 'fast-json-patch';
 import Test from './test.model';
 import perfTest from './test.service';
 import validator from 'validator';
