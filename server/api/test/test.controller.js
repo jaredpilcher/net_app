@@ -51,6 +51,5 @@ export function create(req, res) {
     //run performance test
     perfTest(client, server);
 
-  return respondWithResult(res, 201)
-    .catch(handleError(res));
+    return res.status(201).send();
 }
