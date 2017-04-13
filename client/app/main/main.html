@@ -12,6 +12,7 @@
                 <li>Select a client interface</li>
                 <li>Run the following command on a laptop connected via Ethernet to your WiFi access point to start an Iperf server: <code>iperf3 -s</code></li>
                 <li>Provide the IP address of the Iperf3 server</li>
+                <li>Select a transport layer protocol</li>
                 <li>Click the <strong>Start Test</strong> button</li>
             </ol>
             <form>
@@ -28,6 +29,14 @@
                     <input id="server_ip" class="form-control" ng-model="$ctrl.server" placeholder="10.0.0.160..."/>
                 </div>
 
+                <div class="form-group">
+                    <label for="protocol">Protocol</label>
+                    <select id="protocol" class="form-control" ng-model="$ctrl.protocol">
+                        <option value="tcp">TCP</option>
+                        <option value="udp">UDP</option>
+                    </select>
+                </div>
+
                 <button class="btn-primary btn btn" ng-disabled="!($ctrl.client && $ctrl.server)" type="submit" ng-click="$ctrl.startTest()">Start Test</button>
             </form>
         </div>
@@ -42,6 +51,7 @@
                     <th>Date Executed</th>
                     <th>Client IP Address</th>
                     <th>Server IP Address</th>
+                    <th>Protocol</th>
                     <th>Client to Server Bandwidth</th>
                     <th>Server to Client Bandwidth</th>
                     <th>Message</th>
@@ -52,6 +62,7 @@
                     <td>{{test.timestamp}}</td>
                     <td>{{test.client_ip}}</td>
                     <td>{{test.server_ip}}</td>
+                    <td>{{test.protocol | uppercase}}</td>
                     <td>{{test.forward_bandwidth}}</td>
                     <td>{{test.reverse_bandwidth}}</td>
                     <td>{{test.message}}</td>

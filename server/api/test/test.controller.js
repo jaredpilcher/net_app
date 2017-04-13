@@ -48,8 +48,15 @@ export function create(req, res) {
         handleError(res, 400);
     }
 
+    //validate protocol
+    let protocol = req.body.protocol;
+    if(!protocol || (protocol != "udp" && protocol != "tcp")) {
+        console.log('invalid protocol given: ' + protocol);
+        handleError(res, 400);
+    }
+
     //run performance test
-    perfTest(client, server);
+    perfTest(client, server, protocol);
 
     return res.status(201).send();
 }

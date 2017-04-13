@@ -6,6 +6,7 @@ export class MainController {
 
   client = null;
   server = null;
+  protocol = null;
   interfaces = [];
 
   /*@ngInject*/
@@ -58,13 +59,15 @@ export class MainController {
      * Start a throughput performance test via tests api
      */
   startTest() {
-    if(this.client && this.server) {
+    if(this.client && this.server && this.protocol) {
       this.$http.post('/api/tests', {
         client: this.client,
-        server: this.server
+        server: this.server,
+        protocol: this.protocol
       });
       this.client = '';
       this.server = '';
+      this.protocol = '';
     }
   }
 }
