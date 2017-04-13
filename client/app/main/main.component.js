@@ -6,7 +6,7 @@ export class MainController {
 
   client = null;
   server = null;
-  protocol = null;
+  protocol = 'tcp';
   interfaces = [];
 
   /*@ngInject*/
@@ -67,7 +67,7 @@ export class MainController {
       });
       this.client = '';
       this.server = '';
-      this.protocol = '';
+      this.protocol = 'tcp';
     }
   }
 }
