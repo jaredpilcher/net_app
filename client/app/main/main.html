@@ -9,7 +9,7 @@
             <h2 class="text-primary">Run a Test!</h2>
             <h3>To run a throughput performance test, do the following:</h3>
             <ol>
-                <li>Select a client interface</li>
+                <li>Provide an IP address for the client. This will be one of the network interfaces of the web server.</li>
                 <li>Run the following command on a laptop connected via Ethernet to your WiFi access point to start an Iperf server: <code>iperf3 -s</code></li>
                 <li>Provide the IP address of the Iperf3 server</li>
                 <li>Select a transport layer protocol</li>
@@ -18,11 +18,8 @@
             <form>
                 <div class="form-group">
                     <label for="client_ip">Client IP</label>
-                    <select id="client_ip" class="form-control" ng-model="$ctrl.client">
-                        <option value="{{ip_address}}" ng-repeat="ip_address in $ctrl.interfaces">{{ip_address}}</option>
-                    </select>
+                    <input id="client_ip" class="form-control" ng-model="$ctrl.client" placeholder="10.0.0.15..."/>
                 </div>
-
 
                 <div class="form-group">
                     <label for="server_ip">Server IP</label>

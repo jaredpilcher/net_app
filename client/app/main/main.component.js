@@ -23,7 +23,8 @@ export class MainController {
         },
           1000);
 
-      this.interfaces = this.retrieveClientInterfaces();
+      //todo: reimplement, but use a list of suggesting interfaces instead
+      // this.interfaces = this.retrieveClientInterfaces();
   }
 
     /**
