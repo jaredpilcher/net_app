@@ -5,6 +5,7 @@ import angular from 'angular';
 import ngCookies from 'angular-cookies';
 import ngResource from 'angular-resource';
 import ngSanitize from 'angular-sanitize';
+import 'angular-socket-io';
 
 const ngRoute = require('angular-route');
 
@@ -21,11 +22,12 @@ import footer from '../components/footer/footer.component';
 import main from './main/main.component';
 import constants from './app.constants';
 import util from '../components/util/util.module';
+import socket from '../components/socket/socket.service';
 
 import './app.css';
 
-angular.module('netTestAppApp', [ngCookies, ngResource, ngSanitize, ngRoute, uiBootstrap, navbar,
-  footer, main, constants, util
+angular.module('netTestAppApp', [ngCookies, ngResource, ngSanitize, 'btford.socket-io', ngRoute, uiBootstrap, navbar,
+  footer, main, constants, socket, util
 ])
   .config(routeConfig);
 

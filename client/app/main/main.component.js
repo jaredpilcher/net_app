@@ -8,20 +8,30 @@ export class MainController {
   server = null;
   protocol = 'tcp';
   interfaces = [];
+  socket;
 
   /*@ngInject*/
-  constructor($http, $interval) {
+  constructor($http, socket, $scope) {
     this.$http = $http;
-    this.$interval = $interval;
+    this.socket = socket;
+
+    $scope.$on('$destroy', function() {
+        socket.unsyncUpdates('test');
+    });
+
   }
 
   $onInit() {
-      //retrieve tests every second
+      console.log('retreiving tests');
       let self = this;
-      this.$interval( function() {
-          self.retrieveTests();
-        },
-          1000);
+      this.$http.get('/api/tests')
+          .then(response => {
+              self.tests = response.data;
+              if(self.tests) {
+                  self.tests.reverse(); //to order in descending order
+              }
+              this.socket.syncUpdates('test', this.tests); //sync any additions to the tests in the db
+          });
 
       //todo: reimplement, but use a list of suggesting interfaces instead
       // this.interfaces = this.retrieveClientInterfaces();
@@ -37,21 +47,6 @@ export class MainController {
         .then(response => {
             self.interfaces = response.data;
         });
-  }
-
-    /**
-     * retrieve tests from the tests api
-     */
-  retrieveTests() {
-      console.log('retreiving tests');
-      let self = this;
-      this.$http.get('/api/tests')
-        .then(response => {
-            self.tests = response.data;
-            if(self.tests) {
-                self.tests.reverse(); //to order in descending order
-            }
-      });
   }
 
 
